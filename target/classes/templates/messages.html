@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - Zirah</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    .navbar-brand {
+        margin-left: 5px;
+    }
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+           <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+    <img th:src="@{/images/zirah-logo.png}"
+         alt="Zirah Logo"
+         width="36"
+         height="36"
+         class="me-2"
+         style="object-fit: contain;">
+    <span class="fw-bold">Zirah</span>
+</a>
+
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" th:href="@{/student/dashboard}" th:if="${userType == 'STUDENT'}">Dashboard</a>
+                <a class="nav-link" th:href="@{/recruiter/dashboard}" th:if="${userType == 'RECRUITER'}">Dashboard</a>
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0"><i class="fas fa-comments me-2"></i>Messages</h4>
+                <small>Go to dashboard to message users</small>
+            </div>
+            <div class="card-body">
+                <!-- Messages List -->
+                <div th:if="${threads != null and !threads.empty}">
+                    <div class="list-group">
+                        <a th:each="thread : ${threads}" 
+                           th:href="@{/messages/thread/{otherUserId}/{otherUserType}(otherUserId=${thread.otherUserId}, otherUserType=${thread.otherUserType})}"
+                           class="list-group-item list-group-item-action">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="mb-1" th:text="${thread.otherUserName}">User Name</h6>
+                                    <p class="mb-1 text-muted" th:text="${thread.lastMessage}">Last message...</p>
+                                    <small th:text="${thread.lastMessageTime}">Time</small>
+                                </div>
+                                <span th:if="${thread.unreadCount > 0}" 
+                                      class="badge bg-danger" 
+                                      th:text="${thread.unreadCount}">0</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- No Messages -->
+                <div th:if="${threads == null or threads.empty}" class="text-center py-5">
+                    <i class="fas fa-comments fa-3x mb-3 text-muted"></i>
+                    <h5>No Messages Yet</h5>
+                    <p class="text-muted">Start conversations from your dashboard</p>
+                    <a th:href="@{/student/dashboard}" th:if="${userType == 'STUDENT'}" class="btn btn-primary">
+                        Go to Student Dashboard
+                    </a>
+                    <a th:href="@{/recruiter/dashboard}" th:if="${userType == 'RECRUITER'}" class="btn btn-primary">
+                        Go to Recruiter Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Zirah</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .dashboard-card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+        .admin-header {
+            background: #399485;
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+           <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+    <img th:src="@{/images/zirah-logo.png}"
+         alt="Zirah Logo"
+         width="36"
+         height="36"
+         class="me-2"
+         style="object-fit: contain;">
+    <span class="fw-bold">Zirah</span>
+</a>
+
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" th:href="@{/}">Back to Home</a>
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="admin-header">
+        <div class="container">
+            <h1 class="display-4">Admin Dashboard</h1>
+            
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Students Card -->
+            <div class="col-md-6 mb-4">
+                <div class="card dashboard-card text-white bg-primary">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-users fa-3x"></i>
+                        </div>
+                        <h2 class="card-title" th:text="${studentCount}">0</h2>
+                        <p class="card-text">Total Students</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recruiters Card -->
+            <div class="col-md-6 mb-4">
+                <div class="card dashboard-card text-white bg-success">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-briefcase fa-3x"></i>
+                        </div>
+                        <h2 class="card-title" th:text="${recruiterCount}">0</h2>
+                        <p class="card-text">Total Recruiters</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <a th:href="@{/}" class="btn btn-outline-primary w-100">
+                                    View Main Site
+                                </a>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <a th:href="@{/signin}" class="btn btn-outline-secondary w-100">
+                                    User Login
+                                </a>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <a th:href="@{/logout}" class="btn btn-outline-danger w-100">
+                                    Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
